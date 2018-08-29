@@ -8,8 +8,8 @@ import (
 	expect "github.com/Netflix/go-expect"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gopkg.in/AlecAivazis/survey.v1/core"
-	"gopkg.in/AlecAivazis/survey.v1/terminal"
+	"github.com/tylerflint/survey/core"
+	"github.com/tylerflint/survey/terminal"
 )
 
 func init() {

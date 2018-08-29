@@ -3,8 +3,8 @@ package survey
 import (
 	"fmt"
 
-	"gopkg.in/AlecAivazis/survey.v1/core"
-	"gopkg.in/AlecAivazis/survey.v1/terminal"
+	"github.com/tylerflint/survey/core"
+	"github.com/tylerflint/survey/terminal"
 )
 
 /*
