@@ -15,8 +15,11 @@ var (
 	// more detailed question help
 	HelpInputRune = '?'
 
+	// DoneIcon will be be shown when complete
+	DoneIcon = "√"
+
 	// ErrorIcon will be be shown before an error
-	ErrorIcon = "X"
+	ErrorIcon = "!"
 
 	// HelpIcon will be shown before more detailed question help
 	HelpIcon = "????"
@@ -40,6 +43,7 @@ var (
   are the same.
 */
 func SetFancyIcons() {
+	DoneIcon = "✓"
 	ErrorIcon = "✘"
 	HelpIcon = "ⓘ"
 	// QuestionIcon fancy and non-fancy form are the same
@@ -60,6 +64,9 @@ var TemplateFuncs = map[string]interface{}{
 	},
 	"HelpInputRune": func() string {
 		return string(HelpInputRune)
+	},
+	"DoneIcon": func() string {
+		return DoneIcon
 	},
 	"ErrorIcon": func() string {
 		return ErrorIcon

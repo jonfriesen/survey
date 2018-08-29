@@ -46,7 +46,11 @@ type SelectTemplateData struct {
 
 var SelectQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
-{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+{{- if .ShowAnswer}}
+	{{- color "green+hb"}}{{ DoneIcon }} {{color "reset"}}
+{{- else }}
+	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+{{- end}}
 {{- color "default+hb"}}{{ .Message }}{{ .FilterMessage }}{{color "reset"}}
 {{- if .ShowAnswer}}{{color "cyan"}} {{.Answer}}{{color "reset"}}{{"\n"}}
 {{- else}}

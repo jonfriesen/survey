@@ -24,12 +24,19 @@ var simpleQs = []*survey.Question{
 		},
 		Validate: survey.Required,
 	},
+	{
+		Name: "password",
+		Prompt: &survey.Password{
+			Message: "Password:",
+		},
+	},
 }
 
 func main() {
 	answers := struct {
-		Name  string
-		Color string
+		Name  		string
+		Color 		string
+		Password 	string
 	}{}
 
 	// ask the question
@@ -40,5 +47,5 @@ func main() {
 		return
 	}
 	// print the answers
-	fmt.Printf("%s chose %s.\n", answers.Name, answers.Color)
+	fmt.Printf("%s chose %s with password: %s.\n", answers.Name, answers.Color, answers.Password)
 }

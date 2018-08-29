@@ -23,13 +23,18 @@ type Password struct {
 
 type PasswordTemplateData struct {
 	Password
-	ShowHelp bool
+	ShowHelp 	bool
+	Done			bool
 }
 
 // Templates with Color formatting. See Documentation: https://github.com/mgutz/ansi#style-format
 var PasswordQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
-{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+{{- if .Done}}
+	{{- color "green+hb"}}{{ DoneIcon }} {{color "reset"}}
+{{- else }}
+	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+{{- end}}
 {{- color "default+hb"}}{{ .Message }} {{color "reset"}}
 {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}`
 
@@ -81,6 +86,20 @@ func (p *Password) Prompt() (line interface{}, err error) {
 }
 
 // Cleanup hides the string with a fixed number of characters.
-func (prompt *Password) Cleanup(val interface{}) error {
+func (p *Password) Cleanup(val interface{}) error {
+	cursor := p.NewCursor()
+	cursor.PreviousLine(1)
+	
+	// render the question template
+	out, err := core.RunTemplate(
+		PasswordQuestionTemplate,
+		PasswordTemplateData{Password: *p, Done: true},
+	)
+	
+	fmt.Fprint(terminal.NewAnsiStdout(p.Stdio().Out), out + "\n")
+	if err != nil {
+		return err
+	}
+	
 	return nil
 }
