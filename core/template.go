@@ -43,7 +43,7 @@ var (
   are the same.
 */
 func SetFancyIcons() {
-	DoneIcon = "✓"
+	DoneIcon = "✔"
 	ErrorIcon = "✘"
 	HelpIcon = "ⓘ"
 	// QuestionIcon fancy and non-fancy form are the same
@@ -51,7 +51,7 @@ func SetFancyIcons() {
 	MarkedOptionIcon = "◉"
 	UnmarkedOptionIcon = "◯"
 
-	SelectFocusIcon = "❯"
+	SelectFocusIcon = "›"
 }
 
 var TemplateFuncs = map[string]interface{}{
