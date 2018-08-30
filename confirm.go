@@ -25,13 +25,17 @@ type ConfirmTemplateData struct {
 // Templates with Color formatting. See Documentation: https://github.com/mgutz/ansi#style-format
 var ConfirmQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
-{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
-{{- color "default+hb"}}{{ .Message }} {{color "reset"}}
 {{- if .Answer}}
-  {{- color "cyan"}}{{.Answer}}{{color "reset"}}{{"\n"}}
+	{{- color "green+h"}}{{ DoneIcon }} {{color "reset"}}
+{{- else }}
+	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+{{- end}}
+{{- if not .Answer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }} {{color "reset"}}
+{{- if .Answer}}
+  {{- color "default"}} {{color "reset"}}{{"\n"}}
 {{- else }}
   {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
-  {{- color "white"}}{{if .Default}}(Y/n) {{else}}(y/N) {{end}}{{color "reset"}}
+  {{- if not .Answer}}: {{end}}{{- color "cyan+h"}}{{if .Default}}(Y/n) {{else}}(y/N) {{end}}{{color "reset"}}
 {{- end}}`
 
 // the regex for answers

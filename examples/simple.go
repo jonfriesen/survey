@@ -41,6 +41,13 @@ var simpleQs = []*survey.Question{
 	// 		Message: "Password",
 	// 	},
 	// },
+	{
+		Name: "crazy",
+		Prompt: &survey.Confirm{
+			Message: "You're a bit crazy, right?",
+			Default: true,
+		},
+	},
 }
 
 func main() {
@@ -49,6 +56,7 @@ func main() {
 		Color 		string
 		Password 	string
 		Nickname	string
+		Crazy			bool
 	}{}
 
 	// ask the question
