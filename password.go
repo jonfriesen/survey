@@ -31,12 +31,13 @@ type PasswordTemplateData struct {
 var PasswordQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
 {{- if .Done}}
-	{{- color "green+hb"}}{{ DoneIcon }} {{color "reset"}}
+	{{- color "green+h"}}{{ DoneIcon }} {{color "reset"}}
 {{- else }}
 	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
 {{- end}}
-{{- color "default+hb"}}{{ .Message }} {{color "reset"}}
-{{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}`
+{{- color "default+h"}}{{ .Message }} {{color "reset"}}
+{{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
+{{- if not .Done}}: {{end}}`
 
 func (p *Password) Prompt() (line interface{}, err error) {
 	// render the question template

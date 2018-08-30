@@ -31,16 +31,17 @@ type InputTemplateData struct {
 var InputQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
 {{- if .ShowAnswer}}
-	{{- color "green+hb"}}{{ DoneIcon }} {{color "reset"}}
+	{{- color "green+h"}}{{ DoneIcon }} {{color "reset"}}
 {{- else }}
 	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
 {{- end}}
-{{- color "default+hb"}}{{ .Message }} {{color "reset"}}
+{{- if not .ShowAnswer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }} {{color "reset"}}
 {{- if .ShowAnswer}}
-  {{- color "default"}}{{.Answer}}{{color "reset"}}{{"\n"}}
+  {{- color "default"}} {{color "reset"}}{{"\n"}}
 {{- else }}
   {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
-  {{- if .Default}}{{color "white"}}({{.Default}}) {{color "reset"}}{{end}}
+  {{- if .Default}}{{color "cyan+h"}}({{.Default}}) {{color "reset"}}{{end}}
+	{{- if not .ShowAnswer}}: {{end}}{{- color "cyan"}}
 {{- end}}`
 
 func (i *Input) Prompt() (interface{}, error) {

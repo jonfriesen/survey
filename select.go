@@ -47,17 +47,17 @@ type SelectTemplateData struct {
 var SelectQuestionTemplate = `
 {{- if .ShowHelp }}{{- color "cyan"}}{{ HelpIcon }} {{ .Help }}{{color "reset"}}{{"\n"}}{{end}}
 {{- if .ShowAnswer}}
-	{{- color "green+hb"}}{{ DoneIcon }} {{color "reset"}}
+	{{- color "green+h"}}{{ DoneIcon }} {{color "reset"}}
 {{- else }}
 	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
 {{- end}}
-{{- color "default+hb"}}{{ .Message }}{{ .FilterMessage }}{{color "reset"}}
-{{- if .ShowAnswer}}{{color "default"}} {{.Answer}}{{color "reset"}}{{"\n"}}
+{{- if not .ShowAnswer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }}{{ .FilterMessage }}{{color "reset"}}
+{{- if .ShowAnswer}}{{color "reset"}}{{"\n"}}
 {{- else}}
-  {{- "  "}}{{- color "cyan"}}[Use arrows to move, type to filter{{- if and .Help (not .ShowHelp)}}, {{ HelpInputRune }} for more help{{end}}]{{color "reset"}}
+	{{- if not .ShowAnswer}}: {{end}}
   {{- "\n"}}
   {{- range $ix, $choice := .PageEntries}}
-    {{- if eq $ix $.SelectedIndex}}{{color "cyan+b"}}{{ SelectFocusIcon }} {{else}}{{color "default+hb"}}  {{end}}
+    {{- if eq $ix $.SelectedIndex}}{{color "cyan+h"}}{{ SelectFocusIcon }} {{else}}{{color "default+h"}}  {{end}}
     {{- $choice}}
     {{- color "reset"}}{{"\n"}}
   {{- end}}

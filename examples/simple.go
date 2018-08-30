@@ -11,7 +11,15 @@ var simpleQs = []*survey.Question{
 	{
 		Name: "name",
 		Prompt: &survey.Input{
-			Message: "What is your name?",
+			Message: "What is your name",
+		},
+		Validate:  survey.Required,
+		Transform: survey.Title,
+	},
+	{
+		Name: "nickname",
+		Prompt: &survey.Input{
+			Message: "What is your nickname",
 		},
 		Validate:  survey.Required,
 		Transform: survey.Title,
@@ -19,17 +27,20 @@ var simpleQs = []*survey.Question{
 	{
 		Name: "color",
 		Prompt: &survey.Select{
-			Message: "Choose a color:",
-			Options: []string{"red", "blue", "green"},
+			Message: "How would you like to build the runtime",
+			Options: []string{
+				"Automatically with Heroku buildpacks",
+				"Manually with a custom Dockerfile",
+			},
 		},
 		Validate: survey.Required,
 	},
-	{
-		Name: "password",
-		Prompt: &survey.Password{
-			Message: "Password:",
-		},
-	},
+	// {
+	// 	Name: "password",
+	// 	Prompt: &survey.Password{
+	// 		Message: "Password",
+	// 	},
+	// },
 }
 
 func main() {
@@ -37,6 +48,7 @@ func main() {
 		Name  		string
 		Color 		string
 		Password 	string
+		Nickname	string
 	}{}
 
 	// ask the question
@@ -46,6 +58,4 @@ func main() {
 		fmt.Println(err.Error())
 		return
 	}
-	// print the answers
-	fmt.Printf("%s chose %s with password: %s.\n", answers.Name, answers.Color, answers.Password)
 }
