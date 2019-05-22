@@ -30,9 +30,8 @@ var ConfirmQuestionTemplate = `
 {{- else }}
 	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
 {{- end}}
-{{- if not .Answer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }} {{color "reset"}}
-{{- if .Answer}}
-  {{- color "default"}} {{color "reset"}}{{"\n"}}
+{{- if not .Answer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }}{{color "reset"}}
+{{- if .Answer}}{{- color "default"}}: {{color "cyan"}}{{.Answer}}{{color "reset"}}{{"\n"}}
 {{- else }}
   {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
   {{- if not .Answer}}: {{end}}{{- color "cyan+h"}}{{if .Default}}(Y/n) {{else}}(y/N) {{end}}{{color "reset"}}

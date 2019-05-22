@@ -34,6 +34,9 @@ var (
 	// SelectFocusIcon is prepended to an option to signify the user is
 	// currently focusing that option
 	SelectFocusIcon = ">"
+	
+	// InputIcon will be show when requesting input
+	InputIcon = "+"
 )
 
 /*
@@ -85,6 +88,9 @@ var TemplateFuncs = map[string]interface{}{
 	},
 	"SelectFocusIcon": func() string {
 		return SelectFocusIcon
+	},
+	"InputIcon": func() string {
+		return InputIcon
 	},
 }
 

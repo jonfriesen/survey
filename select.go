@@ -1,6 +1,7 @@
 package survey
 
 import (
+	"fmt"
 	"errors"
 	"strings"
 
@@ -52,7 +53,7 @@ var SelectQuestionTemplate = `
 	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
 {{- end}}
 {{- if not .ShowAnswer}}{{- color "default+hb"}}{{- else }}{{- color "default+h"}}{{- end}}{{ .Message }}{{ .FilterMessage }}{{color "reset"}}
-{{- if .ShowAnswer}}{{color "reset"}}{{"\n"}}
+{{- if .ShowAnswer}}{{color "default"}}: {{color "cyan"}}{{.Answer}}{{color "reset"}}{{"\n"}}
 {{- else}}
 	{{- if not .ShowAnswer}}: {{end}}
   {{- "\n"}}
@@ -268,8 +269,21 @@ func (s *Select) Cleanup(val interface{}) error {
 		SelectQuestionTemplate,
 		SelectTemplateData{
 			Select:     *s,
-			Answer:     val.(string),
+			Answer:     s.truncateAnswer(val.(string)),
 			ShowAnswer: true,
 		},
 	)
+}
+
+func (s Select) truncateAnswer(answer string) string {
+	// split the answer into words
+	words := strings.Split(answer, " ")
+	
+	// don't add elipses if there's only one word
+	if len(words) == 1 {
+		return answer
+	}
+	
+	// add elipses
+	return fmt.Sprintf("%s...", words[0])
 }

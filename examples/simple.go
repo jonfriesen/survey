@@ -35,6 +35,18 @@ var simpleQs = []*survey.Question{
 		},
 		Validate: survey.Required,
 	},
+	{
+		Name: "band",
+		Prompt: &survey.Select{
+			Message: "What is your favorite band",
+			Options: []string{
+				"Beatles",
+				"Nsync",
+				"The Monkeys",
+			},
+		},
+		Validate: survey.Required,
+	},
 	// {
 	// 	Name: "password",
 	// 	Prompt: &survey.Password{
@@ -42,9 +54,15 @@ var simpleQs = []*survey.Question{
 	// 	},
 	// },
 	{
+		Name: "secret",
+		Prompt: &survey.Password{
+			Message: "What's your super secret API key",
+		},
+	},
+	{
 		Name: "crazy",
 		Prompt: &survey.Confirm{
-			Message: "You're a bit crazy, right?",
+			Message: "You're a bit crazy, right",
 			Default: true,
 		},
 	},
@@ -54,13 +72,18 @@ func main() {
 	answers := struct {
 		Name  		string
 		Color 		string
+		Band			string
 		Password 	string
 		Nickname	string
 		Crazy			bool
+		Secret		string
 	}{}
 
 	// ask the question
 	err := survey.Ask(simpleQs, &answers)
+	
+	fmt.Printf("\n\n\n")
+	fmt.Println(answers)
 
 	if err != nil {
 		fmt.Println(err.Error())

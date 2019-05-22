@@ -33,11 +33,13 @@ var PasswordQuestionTemplate = `
 {{- if .Done}}
 	{{- color "green+h"}}{{ DoneIcon }} {{color "reset"}}
 {{- else }}
-	{{- color "green+hb"}}{{ QuestionIcon }} {{color "reset"}}
+	{{- color "green+hb"}}{{ InputIcon }} {{color "reset"}}
 {{- end}}
-{{- color "default+h"}}{{ .Message }} {{color "reset"}}
+{{- if not .Done}}{{- color "default+hb"}}{{ .Message }}{{color "reset"}}
+{{- else}}{{- color "default+h"}}{{ .Message }}{{color "reset"}}{{end}}
 {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
-{{- if not .Done}}: {{end}}`
+{{- if not .Done}}: {{color "cyan"}}
+{{- else}}{{color "reset"}}{{end}}`
 
 func (p *Password) Prompt() (line interface{}, err error) {
 	// render the question template
