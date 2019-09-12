@@ -15,7 +15,7 @@ type Renderer struct {
 	errorLineCount int
 }
 
-var ErrorTemplate = `{{color "red"}}{{ ErrorIcon }} Sorry, your reply was invalid: {{.Error}}{{color "reset"}}
+var ErrorTemplate = `{{color "red"}}{{ ErrorIcon }} {{.Error}}{{color "reset"}}
 `
 
 func (r *Renderer) WithStdio(stdio terminal.Stdio) {
@@ -70,12 +70,12 @@ func (r *Renderer) resetPrompt(lines int) {
 func (r *Renderer) Render(tmpl string, data interface{}) error {
 	r.resetPrompt(r.lineCount)
 	// render the template summarizing the current state
-	
+
 	// set Fancy icons if this is a real terminal
 	if isatty.IsTerminal(r.stdio.Out.Fd()) {
 		SetFancyIcons()
 	}
-	
+
 	out, err := RunTemplate(tmpl, data)
 	if err != nil {
 		return err
