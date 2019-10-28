@@ -71,8 +71,8 @@ func (r *Renderer) Render(tmpl string, data interface{}) error {
 	r.resetPrompt(r.lineCount)
 	// render the template summarizing the current state
 
-	// set Fancy icons if this is a real terminal
-	if isatty.IsTerminal(r.stdio.Out.Fd()) {
+	// set Fancy icons if this is a real terminal and not Windows
+	if isatty.IsTerminal(r.stdio.Out.Fd()) && !isatty.IsCygwinTerminal(r.stdio.Out.Fd()) {
 		SetFancyIcons()
 	}
 
