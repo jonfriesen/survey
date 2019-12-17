@@ -39,7 +39,7 @@ var InputQuestionTemplate = `
 {{- if .ShowAnswer}}{{- color "default"}}: {{color "reset"}}{{color "cyan"}}{{.Answer}}{{color "reset"}}{{"\n"}}
 {{- else }}
   {{- if and .Help (not .ShowHelp)}}{{color "cyan"}}[{{ HelpInputRune }} for help]{{color "reset"}} {{end}}
-  {{- if .Default}}{{color "cyan+h"}}({{.Default}}) {{color "reset"}}{{end}}
+  {{- if .Default}}{{color "cyan+h"}} ({{.Default}}){{color "reset"}}{{end}}
 	{{- if not .ShowAnswer}}: {{end}}{{- color "cyan"}}
 {{- end}}`
 
