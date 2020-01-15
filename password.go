@@ -23,8 +23,8 @@ type Password struct {
 
 type PasswordTemplateData struct {
 	Password
-	ShowHelp 	bool
-	Done			bool
+	ShowHelp bool
+	Done     bool
 }
 
 // Templates with Color formatting. See Documentation: https://github.com/mgutz/ansi#style-format
@@ -92,17 +92,9 @@ func (p *Password) Prompt() (line interface{}, err error) {
 func (p *Password) Cleanup(val interface{}) error {
 	cursor := p.NewCursor()
 	cursor.PreviousLine(1)
-	
-	// render the question template
-	out, err := core.RunTemplate(
+
+	return p.Render(
 		PasswordQuestionTemplate,
 		PasswordTemplateData{Password: *p, Done: true},
 	)
-	
-	fmt.Fprint(terminal.NewAnsiStdout(p.Stdio().Out), out + "\n")
-	if err != nil {
-		return err
-	}
-	
-	return nil
 }
